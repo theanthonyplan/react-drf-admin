@@ -1,9 +1,9 @@
 // in src/posts.js
 import React from 'react';
-import { List, Edit, Create, Datagrid, ReferenceField, TextField, EditButton, DisabledInput, LongTextInput, ReferenceInput, SelectInput, TextInput } from 'admin-on-rest/lib/mui';
+import { Filter, List, Edit, Create, Datagrid, ReferenceField, TextField, EditButton, DisabledInput, LongTextInput, ReferenceInput, SelectInput, TextInput } from 'admin-on-rest/lib/mui';
 
 export const PostList = (props) => (
-    <List {...props}>
+    <List {...props} filter={<PostFilter />} >
         <Datagrid>
             <TextField source="id" />
               <ReferenceField label="User" source="userId" reference="users">
@@ -35,7 +35,6 @@ export const PostEdit = (props) => (
 
 
 
-
 export const PostCreate = (props) => (
     <Create {...props}>
         <ReferenceInput label="User" source="userId" reference="users" allowEmpty>
@@ -44,4 +43,15 @@ export const PostCreate = (props) => (
         <TextInput source="title" />
         <LongTextInput source="body" />
     </Create>
+);
+
+
+
+const PostFilter = (props) => (
+    <Filter {...props}>
+        <TextInput label="Search" source="q" alwaysOn />
+        <ReferenceInput label="User" source="userId" reference="users" allowEmpty>
+            <SelectInput optionText="name" />
+        </ReferenceInput>
+    </Filter>
 );
